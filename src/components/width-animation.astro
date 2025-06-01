@@ -1,0 +1,195 @@
+---
+// Horizontal Animation
+---
+
+<canvas id="line-animation-canvas"></canvas>
+
+<script>
+  interface Branch {
+    x: number;
+    y: number;
+    dx: number;
+    dy: number;
+    startX?: number;
+    startY?: number;
+    main_branch?: boolean;
+  }
+
+  class LineAnimation {
+    private canvas: HTMLCanvasElement;
+    private ctx: CanvasRenderingContext2D;
+    private animationId: number | null = null;
+    private branches: Branch[] = [];
+    private isAnimating: boolean = false;
+    private delayBeforeStart: number = 1000; // Delay in milliseconds before the first spread starts
+
+    constructor(canvas: HTMLCanvasElement) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext('2d')!;
+      
+      this.init();
+    }
+
+    private init(): void {
+      this.resizeCanvas();
+      this.setupEventListeners();
+      this.startAnimationWithDelay();
+    }
+
+    private resizeCanvas(): void {
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+
+      // Adjust the initial position of branches to be in the center of the canvas
+      this.branches = [{
+        x: this.canvas.width * 0.01,  // Starting from 1% of the width
+        y: this.canvas.height / 2,   // Vertical center
+        dx: 5,                       // Movement speed horizontally
+        dy: 0                        // No initial vertical movement
+      }];
+    }
+
+    private setupEventListeners(): void {
+      window.addEventListener('resize', () => {
+        this.handleResize();
+      });
+    }
+
+    private handleResize(): void {
+      this.resizeCanvas();
+
+      // Adjust initial branches position and speed based on new size
+      this.branches = [{
+        x: this.canvas.width * 0.1,  // Adjust initial X position proportionally
+        y: this.canvas.height / 2,   // Vertical center
+        dx: 5 * (this.canvas.width / window.innerWidth), // Adjust horizontal speed proportionally
+        dy: 0 // Vertical speed remains unchanged
+      }];
+      
+      this.isAnimating = true;
+      this.drawLine();
+    }
+
+    private drawLine = (): void => {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.strokeStyle = "#DDA95A"; // Line color: Yellow
+      this.ctx.lineWidth = 3;
+
+      this.branches.forEach((branch) => {
+        this.ctx.beginPath();
+        this.ctx.moveTo(branch.startX || 0, branch.startY || this.canvas.height / 2); // Start point
+        this.ctx.lineTo(branch.x, branch.y);
+        this.ctx.stroke();
+
+        // Update the position of the branch
+        branch.x += branch.dx; // Move right
+        branch.y += branch.dy; // Move vertically
+
+        if (branch.main_branch && Math.random() > 0.925) {
+          branch.dy = 0;
+          branch.dx = 0; // Stop the main branch
+          this.branches.push({
+            startX: branch.x, // Start position of the new branch
+            startY: branch.y,
+            x: branch.x, // New branch starts at the current position
+            y: branch.y,
+            dx: 5, // Move right
+            dy: 0, // Calculate dy based on the angle
+            main_branch: false,
+          });
+        }
+
+        // Random chance to create a new branch
+        if (
+          Math.random() > 0.95 && // Decreased probability
+          branch.x > this.canvas.width / 3 && // Random chance to branch
+          branch.x - (branch.startX || 10) > 500 && // Increased minimum distance
+          this.branches.length < 70 // Reduced maximum number of branches
+        ) {
+          // Randomly choose an angle between 30 and 60 degrees
+          const angle = 45; // Angle in degrees
+          const angleInRadians = (angle * Math.PI) / 180; // Convert to radians
+          const spreadFactor = Math.tan(angleInRadians); // Calculate the vertical spread
+
+          this.branches.push({
+            startX: branch.x, // Start position of the new branch
+            startY: branch.y,
+            x: branch.x, // New branch starts at the current position
+            y: branch.y,
+            dx: 5, // Move right
+            dy: (Math.random() > 0.5 ? 1.5 : -1.5) * spreadFactor * branch.dx,
+            main_branch: true,
+            // Calculate dy based on the angle
+          });
+        }
+      });
+
+      // Continue animation if lines aren't off screen
+      if (this.branches.some((b) => b.x < this.canvas.width)) {
+        this.animationId = requestAnimationFrame(this.drawLine);
+      } else {
+        this.isAnimating = false; // Stop animation if all branches are off screen
+      }
+    };
+
+    private startAnimationWithDelay(): void {
+      this.isAnimating = true;
+      
+      setTimeout(() => {
+        this.drawLine(); // Start the animation after the specified delay
+      }, this.delayBeforeStart);
+    }
+
+    public destroy(): void {
+      if (this.animationId) {
+        cancelAnimationFrame(this.animationId);
+      }
+      window.removeEventListener('resize', this.handleResize);
+    }
+  }
+
+  // Initialize the animation when the script loads
+  function initAnimation() {
+    const canvas = document.getElementById('line-animation-canvas') as HTMLCanvasElement;
+    if (canvas) {
+      const animation = new LineAnimation(canvas);
+      
+      // Cleanup on page navigation or unload
+      const cleanup = () => {
+        animation.destroy();
+      };
+      
+      window.addEventListener('beforeunload', cleanup);
+      
+      // Also cleanup when navigating away (for SPA-like behavior)
+      document.addEventListener('astro:before-preparation', cleanup);
+      document.addEventListener('astro:page-load', cleanup);
+      
+      return animation;
+    }
+    return null;
+  }
+
+  // Initialize immediately if DOM is ready, otherwise wait
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimation);
+  } else {
+    initAnimation();
+  }
+
+  // Re-initialize on Astro page loads (for client-side routing)
+  document.addEventListener('astro:page-load', () => {
+    // Small delay to ensure DOM is ready
+    setTimeout(initAnimation, 50);
+  });
+</script>
+
+<style>
+  #line-animation-canvas {
+    display: block;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>

@@ -1,0 +1,43 @@
+---
+import RootLayout from "./RootLayout.astro";
+import Footer from "@components/footer.astro";
+import WarpBackground from "@components/warp-background";
+
+const { title, description } = Astro.props;
+
+const pathname = Astro.url.pathname;
+---
+<!--If you want to constraint the expasion of the max-w-screen-xl  -->
+<RootLayout title={title} description={description}>
+	<div class="flex relative w gap-4 w-full">
+		<nav class="relative w-4 md:min-w-2xs xl:min-w-sm sm:min-h-screen sm:ml-4 sm:pb-4 ">
+			<div class="w-full h-full  max-sm:w-4 md:max-w-2xs xl:max-w-sm fixed -z-10 sm:bottom-4 rounded-b-2xl overflow-hidden">
+				<WarpBackground
+					color1="#124182"
+					color2="#365FB7"
+					color3="#799AE0"
+					speed={0.6}
+					swirl={0.5}
+					swirlIterations={10}
+					shapeScale={0.3}
+					client:load
+				/>
+			</div>
+		</nav>
+
+		<!--
+		Multicolor: 
+				color1="#4A8A4C"
+				color2="#D88FCE"
+				color3="#D58348"
+		-->
+
+
+		<main class="relative flex-1 "  >
+			<slot />
+			<Footer />
+		</main>
+
+
+	</div>
+</RootLayout>

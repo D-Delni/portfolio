@@ -1,0 +1,241 @@
+---
+// Vertical Animation 
+---
+
+<canvas id="line-animation-vertical"></canvas>
+
+<script>
+  interface Branch {
+    x: number;
+    y: number;
+    dx: number;
+    dy: number;
+    startX: number;
+    startY: number;
+    main_branch?: boolean;
+  }
+
+  class VerticalLineAnimation {
+    private canvas: HTMLCanvasElement;
+    private ctx: CanvasRenderingContext2D;
+    private animationId: number | null = null;
+    private branches: Branch[] = [];
+    private isAnimating: boolean = false;
+    private hasStarted: boolean = false;
+    private observerRef: IntersectionObserver | null = null;
+    
+    // Configuration
+    private lineColor: string = "#DDA95A";
+    private lineWidth: number = 3;
+    private initialSpeed: number = 5;
+    private branchProbability: number = 0.95;
+    private maxBranches: number = 70;
+    private minDistanceBeforeBranch: number = 200;
+    private delayBeforeStart: number = 500;
+    private spreadAngle: number = 45;
+
+    constructor(canvas: HTMLCanvasElement) {
+      this.canvas = canvas;
+      this.ctx = canvas.getContext('2d')!;
+      this.init();
+    }
+
+    private init(): void {
+      this.resizeCanvas();
+      this.setupEventListeners();
+      this.setupIntersectionObserver();
+    }
+
+    private resizeCanvas(): void {
+      this.canvas.width = window.innerWidth;
+      this.canvas.height = window.innerHeight;
+
+      // Vertical: start from top at 1/6 of width, move down
+      this.branches = [{
+        x: this.canvas.width / 6,        // Start at 1/6 of canvas width
+        y: this.canvas.height * 0.01,    // Start from top (1% down)
+        dx: 0,                           // No horizontal movement initially
+        dy: this.initialSpeed,           // Move downward
+        startX: this.canvas.width / 6,   // Remember start position
+        startY: this.canvas.height * 0.01
+      }];
+    }
+
+    private setupEventListeners(): void {
+      const handleResize = () => {
+        this.resizeCanvas();
+        
+        // Only restart animation if it was already started and visible
+        if (this.hasStarted && this.isAnimating) {
+          this.drawLine();
+        }
+      };
+
+      window.addEventListener('resize', handleResize);
+    }
+
+    private setupIntersectionObserver(): void {
+      const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+
+      const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.startAnimation();
+          } else {
+            this.stopAnimation();
+          }
+        });
+      };
+
+      this.observerRef = new IntersectionObserver(handleIntersection, options);
+      this.observerRef.observe(this.canvas);
+    }
+
+    private startAnimation(): void {
+      if (this.hasStarted) return;
+      
+      this.hasStarted = true;
+      this.isAnimating = true;
+      
+      setTimeout(() => {
+        if (this.isAnimating) {
+          this.drawLine();
+        }
+      }, this.delayBeforeStart);
+    }
+
+    private stopAnimation(): void {
+      this.isAnimating = false;
+      if (this.animationId) {
+        cancelAnimationFrame(this.animationId);
+        this.animationId = null;
+      }
+    }
+
+    private drawLine = (): void => {
+      if (!this.canvas || !this.isAnimating) return;
+      
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+      this.ctx.strokeStyle = this.lineColor;
+      this.ctx.lineWidth = this.lineWidth;
+
+      this.branches.forEach((branch) => {
+        this.ctx.beginPath();
+        this.ctx.moveTo(branch.startX, branch.startY);
+        this.ctx.lineTo(branch.x, branch.y);
+        this.ctx.stroke();
+
+        // Update branch position
+        branch.x += branch.dx;
+        branch.y += branch.dy;
+
+        // Random chance to stop main branch
+        if (branch.main_branch && Math.random() > 0.910) {
+          branch.dx = 0;
+          branch.dy = 0;
+          
+          // Create a continuing branch
+          this.branches.push({
+            startX: branch.x,
+            startY: branch.y,
+            x: branch.x,
+            y: branch.y,
+            dx: 0,                    // No horizontal movement
+            dy: this.initialSpeed,    // Continue moving down
+          });
+        }
+
+        // Check if we should create a new branch
+        const distanceTraveled = branch.y - branch.startY; // Vertical distance
+        const reachedMinDistance = distanceTraveled > this.minDistanceBeforeBranch;
+        const notTooManyBranches = this.branches.length < this.maxBranches;
+        const passedFirstThird = branch.y > this.canvas.height / 3;
+        
+        if (
+          Math.random() > this.branchProbability && 
+          passedFirstThird &&
+          reachedMinDistance &&
+          notTooManyBranches
+        ) {
+          const angleInRadians = (this.spreadAngle * Math.PI) / 180;
+          const spreadFactor = Math.tan(angleInRadians);
+          const spreadDirection = Math.random() > 0.5 ? 1.5 : -1.5;
+
+          // In vertical mode, branches spread horizontally
+          this.branches.push({
+            startX: branch.x,
+            startY: branch.y,
+            x: branch.x,
+            y: branch.y,
+            dx: spreadDirection * spreadFactor * this.initialSpeed, // Horizontal spread
+            dy: this.initialSpeed,                                   // Continue downward
+            main_branch: true,
+          });
+        }
+      });
+
+      // Check if animation should continue (vertical mode - check Y axis)
+      const stillAnimating = this.branches.some(b => b.y < this.canvas.height);
+
+      if (stillAnimating && this.isAnimating) {
+        this.animationId = requestAnimationFrame(this.drawLine);
+      } else {
+        this.isAnimating = false;
+      }
+    };
+
+    public destroy(): void {
+      if (this.observerRef) {
+        this.observerRef.disconnect();
+      }
+      this.stopAnimation();
+      window.removeEventListener('resize', this.resizeCanvas);
+    }
+  }
+
+  // Initialize the animation when the script loads
+  function initAnimation() {
+    const canvas = document.getElementById('line-animation-vertical') as HTMLCanvasElement;
+    if (canvas) {
+      const animation = new VerticalLineAnimation(canvas);
+      
+      // Cleanup on page navigation or unload
+      const cleanup = () => {
+        animation.destroy();
+      };
+      
+      window.addEventListener('beforeunload', cleanup);
+      document.addEventListener('astro:before-preparation', cleanup);
+      document.addEventListener('astro:page-load', cleanup);
+      
+      return animation;
+    }
+    return null;
+  }
+
+  // Initialize immediately if DOM is ready, otherwise wait
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAnimation);
+  } else {
+    initAnimation();
+  }
+
+  // Re-initialize on Astro page loads (for client-side routing)
+  document.addEventListener('astro:page-load', () => {
+    setTimeout(initAnimation, 50);
+  });
+</script>
+
+<style>
+  #line-animation-vertical {
+    display: block;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>
