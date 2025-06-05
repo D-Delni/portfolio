@@ -103,7 +103,7 @@
         if (
           Math.random() > 0.95 && // Decreased probability
           branch.x > this.canvas.width / 3 && // Random chance to branch
-          branch.x - (branch.startX || 10) > 500 && // Increased minimum distance
+          branch.x - (branch.startX || 10) > 200 && // Increased minimum distance
           this.branches.length < 70 // Reduced maximum number of branches
         ) {
           // Randomly choose an angle between 30 and 60 degrees

@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import H1 from "@components/h1.astro";
 import H2 from "@components/h2.astro";
-import InfoLayout from "@layouts/InfoLayout.astro"; 
+import InfoLayout from "@layouts/InfoLayout.astro";
 import orange from "@assets/orange-2.jpg";
 import green from "@assets/green-1.jpg";
 import yellow from "@assets/yellow-1.jpg";
@@ -11,6 +11,7 @@ import code from "@assets/code-asset-6.jpg";
 import drone from "@assets/drone-asset.jpg";
 import chiro from "@assets/chiro-asset.jpg";
 
+const dronePage = "/projects/drone";
 
 const projects = [
      {
@@ -19,6 +20,7 @@ const projects = [
                "Bladeless turbine using fluid dynamics for efficient, low-friction propulsion.",
           image: drone,
           hoverImage: orange,
+          page: dronePage,
      },
      {
           title: "Developer",
@@ -28,7 +30,7 @@ const projects = [
           hoverImage: yellow,
      },
      {
-          title: "Chiro-masseuse",
+          title: "ChiroPractique",
           description:
                "Transform mechanical energy into alternating current, powering the modern electric grid",
           image: chiro,
@@ -38,27 +40,27 @@ const projects = [
 ---
 
 <InfoLayout>
-     <div class="w-full p-4 sm:pt-8 sm:px-12 pb-20 min-h-screen ">
-          <H1 size="large"> Carrier </H1>
+     <div class="w-full p-4 sm:pt-8 sm:px-12 pb-20 min-h-screen">
+          <H2 size="large"> Fields of Experience </H2>
           <ul
-               class="w-full sm:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-16 sm:gap-8"
+               class="w-full sm:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-16 sm:gap-8 max-h-screen"
           >
                {
                     projects.map((project) => (
                          <li>
                               <div class="relative w-full aspect-[1/1.33] overflow-hidden rounded-lg shadow-lg mb-4 xl:mb-4 sm:mb-0 sm:mr-4 group hover:scale-105">
-                                   <Image
-                                   
+                                  <a href={project.page}><Image
                                         src={project.image}
                                         alt={project.title}
+                                        
                                         class="w-full aspect-[1/1.33] object-center object-cover rounded-lg shadow-lg mb-4 xl:mb-4 sm:mb-0 sm:mr-4 transition hover:scale-105 opacity-80 duration-300"
                                    />
-                                        <a href="/"></a>
                                    <Image
                                         src={project.hoverImage}
                                         alt={project.title}
                                         class="absolute inset-0 w-full h-full object-cover object-center opacity-0 blur-none group-hover:opacity-40 group-hover:blur-sm group-hover:scale-105 transition duration-300"
-                                   />
+                                   >
+                                   </Image></a>
                               </div>
                               <div class="p-1 sm:p-2">
                                    <H2 size="default">{project.title}</H2>
