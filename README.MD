@@ -16,8 +16,7 @@
 ### Game developer who is spending its time in data analytics. 😎
 
 ###
-
-I consider myself creative, highly social, and communicative person, yes... It could sound rare, hardly posible but we still exist. Also I tend to be very observant in my daily. Most of my motivations are guided by curiosity and the desire of creating.
+I consider myself creative, highly social, and communicative person, yes... It could sound rare and hardly posible but we still exist. Also I tend to be very observant in my daily life. Most of my motivations are guided by curiosity and the desire of creating.
 
 ###
 
