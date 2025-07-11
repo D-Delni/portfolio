@@ -21,7 +21,7 @@
     private animationId: number | null = null;
     private branches: Branch[] = [];
     private isAnimating: boolean = false;
-    private delayBeforeStart: number = 1000; // Delay in milliseconds before the first spread starts
+    private delayBeforeStart: number = 0; // Delay in milliseconds before the first spread starts
 
     constructor(canvas: HTMLCanvasElement) {
       this.canvas = canvas;

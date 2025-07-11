@@ -11,9 +11,9 @@ const pathname = Astro.url.pathname;
 <RootLayout title={title} description={description}>
 	<div class="flex relative w gap-4 w-full">
 		<nav class="relative w-4 md:min-w-2xs xl:min-w-sm sm:min-h-screen sm:ml-4 sm:pb-4 ">
-			<div class="w-full h-full  max-sm:w-4 md:max-w-2xs xl:max-w-sm fixed -z-10 sm:bottom-4 rounded-b-2xl overflow-hidden">
+			<div class="w-full h-full  not-sm:bg-amber-500 max-sm:w-4 md:max-w-2xs xl:max-w-sm fixed -z-10 sm:bottom-4 rounded-b-2xl overflow-hidden">
 				<div class="absolute w-full h-full sm:min-h-screen -z-10">
-				<LineAnimation/>
+				<LineAnimation />
 				</div>
 			</div>
 		</nav>
