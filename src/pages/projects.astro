@@ -1,17 +1,14 @@
 ---
 import { Image } from "astro:assets";
-import H1 from "@components/h1.astro";
 import H2 from "@components/h2.astro";
 import InfoLayout from "@layouts/InfoLayout.astro";
-import orange from "@assets/orange-2.jpg";
 import gyellow from "@assets/gyellow.jpg";
-import yellow from "@assets/yellow-1.jpg";
 
 import code from "@assets/code-asset-6.jpg";
 import drone from "@assets/drone-asset.jpg";
-import chiro from "@assets/chiro-asset.jpg";
 
 const dronePage = "/projects/drone";
+const developerPage="/projects/developer";
 
 const projects = [
      {
@@ -28,6 +25,7 @@ const projects = [
                "Data analisys softare developer for gaming purposes.",
           image: code,
           hoverImage: gyellow,
+          page: developerPage,
      }
 ];
 ---

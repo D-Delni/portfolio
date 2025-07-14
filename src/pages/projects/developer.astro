@@ -1,0 +1,105 @@
+---
+import ProjectLayout from "@layouts/ProjectLayout.astro";
+import { Image } from "astro:assets";
+import H2 from "@components/h2.astro";
+
+import automatization from "@assets/automatization.jpg";
+---
+
+<ProjectLayout>
+    <div
+        class="p-4 sm:pt-8 sm:px-12 pb-20 min-h-screen flex flex-col justify-between gap-32"
+    >
+        <div class="space-y-4 sm:space-y-12">
+            <H2 size="large"> Software creation</H2>
+
+            <div
+                class="flex relative w-full aspect-[11/5] rounded-sm mb-4 xl:mb-4 sm:mb-0 sm:mr-4"
+            >
+                <Image
+                    src={automatization}
+                    alt="Lapland shoot"
+                    class="w-full aspect-[11/5] object-center object-cover rounded-sm mb-4 xl:mb-4 sm:mb-0 sm:mr-4 opacity-80 duration-300"
+                />
+            </div>
+
+            <!--Creo que no se esta aplicando el plugin de tailwind en estos <p> -->
+            <ul class="w-full grid sm:grid-row-3 gap-16 sm:gap-8">
+                <p
+                    class="grid flex-row relative w-full h-full text-gray-300 justify-center text-[18px]"
+                >
+                    Worked on projects for filtering data from different customers. Like Telefonica, PC Components working with UST.
+                    Also making automatization process for developing fastly and effient data. <strong>Mostly worked with apache Airflow, SQL and python.</strong>
+
+                </p>
+                <br>
+                <p class="grid flex-row relative w-full h-full text-gray-300 justify-center text-[18px]">
+                    <strong>Software and Video Game Development Engineer.</strong> Projects made with BLUREDTEAM, Independet group of developers.
+                    I specialized in Various Blender props. I made multiplayer games with Unity. I know C++ very well and also with OpenGL.
+                </p>
+            </ul>
+
+            <ul class="w-full sm:mt-12 grid sm:grid-cols-2 gap-16 sm:gap-8">
+                <div
+                    class="grid relative w-full h-full text-gray-300 justify-center"
+                >
+                    <H2 size="default">Big Data Analysis</H2>
+                    <div
+                        class="grid relative w-full h-full text-gray-300 justify-center md:mt-0"
+                    >
+                        <p
+                            class="grid flex-row relative w-full h-full text-gray-300 justify-center pb-0 pt-2"
+                        >
+                        <br>
+                            
+                        </p>
+
+                        <ol class="grid grid-rows-3 relative md:pt-2 pb-0">
+                            <li class="flex relative md:pl-5 pb-0">
+                                <strong>Cinematic shoots for the movie "Danza Macabra"</strong>
+                                by Ana Wilkszinski, Madrid 2024
+                            </li>
+                            <li class="flex relative md:pl-5 pb-0">
+                                <strong>ESN Montage of cinematic views for promoting</strong>
+                                Erasmus experiences, Malmo 2023
+                            </li>
+                            <br>
+                            <li class="flex relative md:pl-5 pb-0">
+                                Also this aircraft it had been used for
+                                recreational and study purposes in
+                                Riga, Lapland, Copenhagen and Tenerife.
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <div
+                    class="grid relative w-full h-fullt text-gray-300 justify-center"
+                >
+                    <H2 size="default">Game Development</H2>
+                    <div
+                        class="grid relative w-full h-full text-gray-300 justify-center md:mt-0"
+                    >
+                        <p
+                            class="grid flex-row relative w-full h-full text-gray-300 justify-center pb-0 pt-2"
+                        >
+                            First-person-view (FPV) drone, is built for
+                            fast-paced, immersive footage. It excels in
+                            action-heavy environments — such as music videos,
+                            sports, or entertainment projects where movement and
+                            intensity matter.
+
+                            <ol class="grid grid-rows-3 relative md:pt-2">
+                                <li class="flex relative md:pl-5 pb-0">
+                                    <strong>Tracking cars and racing footage for
+                                    Nuin&Kapatropa Productions,</strong> Alicante 2024
+                                </li>
+                            </ol>
+                        </p>
+                    </div>
+                </div>
+            </ul>
+
+            <!--Down here goes a vento grid -->
+        </div>
+    </div>
+</ProjectLayout>
