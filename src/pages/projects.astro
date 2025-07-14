@@ -17,7 +17,7 @@ const projects = [
      {
           title: "Drone Pilot",
           description:
-               "Bladeless turbine using fluid dynamics for efficient, low-friction propulsion.",
+               "Experience on flying over the world.",
           image: drone,
           hoverImage: gyellow,
           page: dronePage,
@@ -25,17 +25,10 @@ const projects = [
      {
           title: "Developer",
           description:
-               "Harness alternating current to produce smooth, efficient rotary motion.",
+               "Data analisys softare developer for gaming purposes.",
           image: code,
           hoverImage: gyellow,
-     },
-     {
-          title: "ChiroPractique",
-          description:
-               "Transform mechanical energy into alternating current, powering the modern electric grid",
-          image: chiro,
-          hoverImage: gyellow,
-     },
+     }
 ];
 ---
 
@@ -44,17 +37,17 @@ const projects = [
          
 
           <ul
-               class="w-full sm:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-16 sm:gap-8 max-h-screen"
+               class="w-full sm:mt-12 grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-8  max-h-screen"
           >
                {
                     projects.map((project) => (
                          <li>
-                              <div class="relative w-full aspect-[1/1.33] overflow-hidden rounded-lg shadow-lg mb-4 xl:mb-4 sm:mb-0 sm:mr-4 group hover:scale-105">
+                              <div class="relative w-full aspect-[1/1.1] max-h-120 overflow-hidden rounded-lg shadow-lg mb-4 xl:mb-4 sm:mb-0 sm:mr-4 group hover:scale-105">
                                   <a href={project.page}><Image
                                         src={project.image}
                                         alt={project.title}
                                         
-                                        class="w-full aspect-[1/1.33] object-center object-cover rounded-lg shadow-lg mb-4 xl:mb-4 sm:mb-0 sm:mr-4 transition hover:scale-105 opacity-80 duration-300"
+                                        class="w-full aspect-[1/1.1] object-center object-cover rounded-lg shadow-lg mb-4 xl:mb-4 sm:mb-0 sm:mr-4 transition hover:scale-105 opacity-80 duration-300"
                                    />
                                    <Image
                                         src={project.hoverImage}

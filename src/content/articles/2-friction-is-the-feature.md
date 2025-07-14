@@ -1,41 +1,33 @@
 ---
 isDraft: false
-title: friction is the feature
-snippet: in a world where everything is free, nothing is valued.
-slug: friction-is-the-feature
+title: Learn by doing
+snippet: Change the education to change
+slug: learn-by-doing
 author: signull
-category: AI
+category: Education
 readingDuration: 1
 pubDate: 2025 4 12
 coverAlt: friction is the feature cover
-originalLink: https://signull.substack.com/p/friction-is-the-feature
-cover: https://substackcdn.com/image/fetch/w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Faf9f6d5e-b688-4c8b-b243-3f55362cccc5_1024x1024.png
+originalLink: https://www.weforum.org/stories/2017/06/new-approaches-education-changing-society/
+cover: https://i.postimg.cc/rwrHWDYX/homogenesis.jpg
 ---
 
-# friction is the feature
-in a world where everything is free, nothing is valued.
+![friction is the feature cover](https://i.postimg.cc/PqczMyLS/solarpunk-classroom.jpg)
 
-scroll, like, forget.
+# Learn by doing
+For far too long, going to school has been an obligation and not an exciting discovery. As Claudio Naranjo observed, <strong> “The ‘I must’ has been replaced by the ‘I want.” </strong> And so, what was once discovery became an institutionalized form of discovery- grounded in the former having to do with wanting to learn and not the actual learning itself.
 
-read, nod, move on.
+Introducing the AI. Robust, lightning-fast, and alluringly seductive. Well, here’s the thing: Education can’t be solely transformed by the AI alone, without the humans.
 
-infinite content. zero weight.
+If learners use AI without reflection or guidance fast answers will follow and no depth. Guided education can lead to varying learning styles adaptative for each student mind. <strong> But it's the human connection – the mentor that molds understanding. </strong>
 
-but the moment you add friction, everything fucking thing changes.
 
-![friction is the feature cover](https://substackcdn.com/image/fetch/w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Faf9f6d5e-b688-4c8b-b243-3f55362cccc5_1024x1024.png)
+![Robot education](https://i.postimg.cc/rwrHWDYX/homogenesis.jpg)
 
-i didn’t add a paywall to gatekeep. i added it to filter.
+<strong>You could read a hundred pages on swimming, but until you get in the water,</strong> you really haven’t learned. That’s the crux of learning by doing. It’s not that theory has to be discarded; it has to be completed with experience.
+When we act, we make mistakes. We get feedback. We adapt. That’s where understanding deepens. Be it building a project, conducting an experiment, or addressing a real-life issue. The process gets your entire self- your mind along with body and emotion into action
 
-because when people pay, they pay attention.
+Great educators, for example, John Dewey, have always been of the opinion that education must be based on experience. In a similar line of thought is project-based learning and maker-centered education: that’s the belief that it’s only real life that effective learning can happen.
+In a world that’s moving so fast, we can’t just be intelligent; we should be skillful. And what’s the best way to acquire skills? Try it out. Fail at it. Learn from it.
 
-they bring themselves to the table.
-
-they read slower. think longer. feel more.
-
-they invest, not just money, but meaning.
-
-skin in the game isn’t about dollars.
-
-it’s about care.
-
+In the end, you don't really get skilled by just knowing. It's more about doing stuff.
