@@ -10,7 +10,14 @@ import cloudflare from "@astrojs/cloudflare";
 
 // https://astro.build/config
 export default defineConfig({
-   output: 'server',
+  output: 'server',
+  adapter: cloudflare({
+    platformProxy:{
+
+    enabled:true 
+    },
+  }),
+  
   vite: {
     plugins: [tailwindcss()],
   },
@@ -32,7 +39,5 @@ export default defineConfig({
       cssVariable: "--font-geist",
       fallbacks: ["Inter", "sans-serif"],
     }]
-  },
-
-  adapter: cloudflare()
+  }
 });
