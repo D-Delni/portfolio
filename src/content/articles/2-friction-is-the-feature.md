@@ -3,7 +3,7 @@ isDraft: false
 title: Learn by doing
 snippet: Change the education to change
 slug: learn-by-doing
-author: signull
+author: Signull
 category: Education
 readingDuration: 1
 pubDate: 2025 4 12

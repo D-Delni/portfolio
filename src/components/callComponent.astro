@@ -1,0 +1,53 @@
+---
+import clsx from "clsx/lite";
+
+type Props = {
+    phoneNumber: string
+    className?: string
+    variant?: "primary" | "secondary"
+}
+
+const { phoneNumber, variant = "primary", className } = Astro.props;
+
+// Clean the phone number for the tel: link (remove spaces, dashes, etc.)
+const cleanPhoneNumber = phoneNumber.replace(/[^\d+]/g, '');
+---
+
+<a 
+    href={`tel:${cleanPhoneNumber}`}
+    id="mobile-call-button"
+    class={clsx(
+        "w-fit text-base sm:text-2xl px-5 py-2 rounded-full transition-all duration-300 ease-in-out whitespace-nowrap",
+        variant === "primary" && "text-zinc-900 bg-zinc-100 hover:outline-2 outline-offset-2 outline-zinc-100",
+        variant === "secondary" && "text-zinc-100 hover:text-white bg-transparent hover:bg-zinc-100/20 hover:outline-2 outline-offset-2 outline-zinc-100/20",
+        "hidden", // Hidden by default, shown by JS on mobile
+        className
+    )}
+>
+    <slot />
+</a>
+
+<script>
+    function isMobileDevice(): boolean {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+               ('ontouchstart' in window) ||
+               (navigator.maxTouchPoints > 0);
+    }
+
+    function showCallButtonOnMobile(): void {
+        const button = document.getElementById('mobile-call-button');
+        
+        if (button && isMobileDevice()) {
+            button.classList.remove('hidden');
+            button.classList.add('inline-block');
+        }
+    }
+
+    // Initialize when DOM is loaded
+    document.addEventListener('DOMContentLoaded', showCallButtonOnMobile);
+    
+    // Also initialize immediately in case DOM is already loaded
+    if (document.readyState !== 'loading') {
+        showCallButtonOnMobile();
+    }
+</script>
